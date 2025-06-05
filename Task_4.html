@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Project Web App</title>
+  <style>
+    :root {
+      --main-color: #1e1e2f;
+      --accent: #4fc3f7;
+      --bg: #f4f7fa;
+      --text: #333;
+      --white: #fff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--main-color);
+      color: var(--white);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      font-size: 1.8em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .section {
+      padding: 50px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: var(--main-color);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    button {
+      background: var(--main-color);
+      color: var(--white);
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: var(--accent);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .product {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: var(--radius);
+    }
+
+    .product h3 {
+      margin: 15px 0 5px;
+      font-size: 1.1em;
+    }
+
+    #taskInput {
+      font-size: 1em;
+    }
+
+    #taskList {
+      list-style: none;
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    #taskList li {
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background: #e6f7ff;
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #taskList li:hover {
+      background: #d0f0ff;
+    }
+
+    .filters {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filters select {
+      padding: 8px;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Portfolio</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#todo">To-Do List</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>I am a creative web developer who loves building modern, responsive, and dynamic web experiences.</p>
+  </section>
+
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <ul>
+      <li>To-Do App with Local Storage</li>
+      <li>Product Filter Gallery</li>
+    </ul>
+  </section>
+
+  <section id="todo" class="section">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="New task" />
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </section>
+
+  <section id="products" class="section">
+    <h2>Product Gallery</h2>
+    <div class="filters">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Book">Book</option>
+        <option value="Charger">Charger</option>
+        <option value="Headphones">Headphones</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Notebook">Notebook</option>
+      </select>
+
+      <select id="priceFilter">
+        <option value="all">All Prices</option>
+        <option value="0-100">Under $100</option>
+        <option value="100-1000">$100 - $1000</option>
+        <option value="1000-5000">$1000 - $5000</option>
+        <option value="5000-100000">Above $5000</option>
+      </select>
+
+      <select id="sortFilter">
+        <option value="default">Sort by</option>
+        <option value="name">Name</option>
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+      </select>
+    </div>
+    <div class="gallery" id="productGallery"></div>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <form onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <script>
+    // To-Do List Logic
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      taskList.innerHTML = '';
+      tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        li.onclick = () => removeTask(index);
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const task = taskInput.value.trim();
+      if (task === '') return;
+      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      tasks.push(task);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      taskInput.value = '';
+      loadTasks();
+    }
+
+    function removeTask(index) {
+      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      tasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      loadTasks();
+    }
+
+    loadTasks();
+
+    // Contact Form
+    function validateForm() {
+      alert("Form submitted successfully!");
+      return false;
+    }
+
+    // Product Gallery Logic
+    const products = [
+      { name: "Book", price: 100, img: "Book.jpg" },
+      { name: "Charger", price: 1500, img: "charger.jpg" },
+      { name: "Headphones", price: 3000, img: "headphones.jpg" },
+      { name: "Laptop", price: 99999, img: "laptop.jpg" },
+      { name: "Notebook", price: 30, img: "notebook.jpg" }
+    ];
+
+    const gallery = document.getElementById("productGallery");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const priceFilter = document.getElementById("priceFilter");
+    const sortFilter = document.getElementById("sortFilter");
+
+    function renderProducts() {
+      let filtered = [...products];
+      const category = categoryFilter.value;
+      const price = priceFilter.value;
+      const sort = sortFilter.value;
+
+      if (category !== "all") {
+        filtered = filtered.filter(p => p.name.toLowerCase() === category.toLowerCase());
+      }
+
+      if (price !== "all") {
+        const [min, max] = price.split("-").map(Number);
+        filtered = filtered.filter(p => p.price >= min && p.price <= max);
+      }
+
+      if (sort === "name") {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sort === "priceAsc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === "priceDesc") {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      gallery.innerHTML = '';
+      filtered.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <p>Price: $${p.price.toLocaleString()}</p>
+        `;
+        gallery.appendChild(div);
+      });
+    }
+
+    categoryFilter.onchange = renderProducts;
+    priceFilter.onchange = renderProducts;
+    sortFilter.onchange = renderProducts;
+
+    renderProducts();
+  </script>
+</body>
+</html>
